@@ -16,10 +16,6 @@ public class Winkelwagen {
     }
 
     public void afrekenen(int geld) {
-        for (Product p : products) {
-            totalePrijs += p.getPrijs();
-        }
-
         if(geld < totalePrijs) {
             System.out.println("Je hebt niet genoeg geld om de producten te kunnen betalen.");
         } else {
@@ -33,53 +29,58 @@ public class Winkelwagen {
         System.out.println("Je hebt betaald met: €" + geld + " en de producten in je winkelwagen hadden een totale kosten van: €" + totalePrijs);
 
         if(wisselgeld >= 0) {
-            System.out.println("Dit betekent dat je wisselgeld had van in totaal: €" + wisselgeld);
+            System.out.println("Dit betekent dat je wisselgeld had van in totaal: €" + String.format( "%.2f", wisselgeld));
         } else {
             System.out.println("Je hebt geen wisselgeld ontvangen.");
         }
-
     }
 
     public void totaleKorting() {
+        double totaleKorting = 0;
 
+        for (Product p : products){
+            totaleKorting += p.getTotaleKorting();
+        }
+
+        totalePrijs = totalePrijs - totaleKorting;
+
+        if (totaleKorting > 0) {
+            System.out.println("Dit is de totale Korting nu: €" + String.format( "%.2f", totaleKorting) + ", dus moest er in totaal: €" + (totalePrijs) + " betaald worden." + "\n");
+        } else {
+            System.out.println("Er is geen korting toegekend aan 1 van je producten.");
+        }
     }
 
     public void print(){
         System.out.println("Dit is de winkelwagen nu:");
         for (Product p : products){
-            System.out.println("Product: " + p.getNaam() + " met een prijs van: €" + String.format( "%.2f", p.getPrijs()));
+            System.out.println("Product: " + p.getNaam() + " met een prijs van: €" + String.format( "%.2f", p.getPrijs()) + " per stuk en een aantal van: " + p.getAantal() + " stuks.");
         }
+
+        for (Product p : products) {
+            totalePrijs += p.getPrijs() * p.getAantal();
+        }
+
+        System.out.println("\n" + "De totaalprijs van alle producten in je winkelwagen (voor de korting) is nu: €" + String.format( "%.2f", totalePrijs));
     }
 
     public static void main(String[] args) {
-        int geld = 20;
+        int geld = 44;
 
-        Product product1 = new Product();
-        product1.setNaam("Robijn");
-        product1.setPrijs(3);
+        Product product1 = new Product("Robijn", 3, 2);
         product1.setKorting(31, 2, "");
 
-        Product product2 = new Product();
-        product2.setNaam("Brinta");
-        product2.setPrijs(2.50);
+        Product product2 = new Product("Brinta", 2.50, 1);
 
-        Product product3 = new Product();
-        product3.setNaam("Chinese Groenten");
-        product3.setPrijs(5);
+        Product product3 = new Product("Chinese Groenten", 5, 1);
 
-        Product product4 = new Product();
-        product4.setNaam("Kwark");
-        product4.setPrijs(2);
+        Product product4 = new Product("Kwark", 2, 1);
         product4.setKorting(50,1, "woensdag");
 
-        Product product5 = new Product();
-        product5.setNaam("Luiers");
-        product5.setPrijs(10);
+        Product product5 = new Product("Luiers", 10, 4);
         product5.setKorting(25, 4, "");
 
-        Product product6 = new Product();
-        product6.setNaam("Chocoladekoeken");
-        product6.setPrijs(1.75);
+        Product product6 = new Product("Chocoladekoeken", 1.75, 1);
 
         Winkelwagen winkelwagen = new Winkelwagen();
         winkelwagen.toevoegen(product1);
@@ -94,12 +95,10 @@ public class Winkelwagen {
 
         winkelwagen.print();
 
-        System.out.println("");
+        winkelwagen.totaleKorting();
 
         winkelwagen.afrekenen(geld);
 
         winkelwagen.wisselgeld(geld);
-
-//      winkelwagen.totaleKorting();
     }
 }
