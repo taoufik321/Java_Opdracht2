@@ -1,7 +1,8 @@
 package opdracht2;
 
-//In deze klasse zijn alle kenmerken die een product nodig heeft aangemaakt
+//In deze klasse zijn alle kenmerken die een product nodig heeft aangemaakt.
 public class Product extends Winkelwagen {
+    // Dit zijn alle atributen die een product nodig heeft.
     private String naam;
     private double prijs;
     private int aantal;
@@ -26,6 +27,7 @@ public class Product extends Winkelwagen {
         return prijs;
     }
 
+    // Met deze methode wordt de korting voor een product berekend aan de hand van het aantal producten en eventueel ook de dag van de aanbieding.
     public void setKorting(double kortingsPercentage, int aantal, String dag) {
         if (this.aantal >= aantal && (dag.equals("") || this.dag.equals(dag))) {
             korting = prijs * (kortingsPercentage / 100) * aantal;

@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 //Hier zitten alle methodes waar een winkelwagen aan moet voldoen, in de winkelwagen moet een product toegevoegd kunnen worden.
 public class Winkelwagen {
+    // Dit is de lijst voor alle producten.
     ArrayList<Product> products = new ArrayList<Product>();
+
+    // Met deze variabele wordt de totale prijs opgeslagen van alle producten in de lijst.
     double totalePrijs;
 
     public void toevoegen(Product p) {
@@ -62,43 +65,5 @@ public class Winkelwagen {
         }
 
         System.out.println("\n" + "De totaalprijs van alle producten in je winkelwagen (voor de korting) is nu: €" + String.format( "%.2f", totalePrijs));
-    }
-
-    public static void main(String[] args) {
-        int geld = 44;
-
-        Product product1 = new Product("Robijn", 3, 2);
-        product1.setKorting(31, 2, "");
-
-        Product product2 = new Product("Brinta", 2.50, 1);
-
-        Product product3 = new Product("Chinese Groenten", 5, 1);
-
-        Product product4 = new Product("Kwark", 2, 1);
-        product4.setKorting(50,1, "woensdag");
-
-        Product product5 = new Product("Luiers", 10, 4);
-        product5.setKorting(25, 4, "");
-
-        Product product6 = new Product("Chocoladekoeken", 1.75, 1);
-
-        Winkelwagen winkelwagen = new Winkelwagen();
-        winkelwagen.toevoegen(product1);
-        winkelwagen.toevoegen(product2);
-        winkelwagen.toevoegen(product3);
-        winkelwagen.toevoegen(product4);
-        winkelwagen.toevoegen(product5);
-        winkelwagen.toevoegen(product6);
-
-        //winkelwagen.verwijderen(product3);
-        //winkelwagen.verwijderen(product6);
-
-        winkelwagen.print();
-
-        winkelwagen.totaleKorting();
-
-        winkelwagen.afrekenen(geld);
-
-        winkelwagen.wisselgeld(geld);
     }
 }
